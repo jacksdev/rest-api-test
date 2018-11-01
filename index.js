@@ -21,5 +21,6 @@ db.on('error', err => console.log(err))
 
 db.once('open', () => {
   require('./routes/customers')(server)
+  require('./routes/register')(server)
   console.log(`server on: ${config.PORT}`);
 })
