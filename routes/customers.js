@@ -1,6 +1,10 @@
 const errors = require('restify-errors');
 const Customer = require('../Models/Customer')
 
+const rjwt = require('restify-jwt-community')
+const config = require('../config')
+
+
 module.exports = server => {
 
   //get customer
@@ -26,7 +30,7 @@ module.exports = server => {
   });
 
   //post data
-  server.post('/customers', async (req, res, next) => {
+  server.post('/customers', rjwt({secret: config.JWT_SECRET}), async (req, res, next) => {
     if(!req.is('application/json')){
       return next(new errors.InvalidContentError("Expects 'application/json'"))
     }
